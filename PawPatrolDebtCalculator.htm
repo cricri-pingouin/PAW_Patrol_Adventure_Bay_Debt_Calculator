@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>PAW Patrol: Adventure Bay debt calculator</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+/* <![CDATA[ */
+
+function Calculate(form)
+{
+	//Capital
+	var kitcost=parseInt(form.ryderK.value)+parseInt(form.marshallK.value)+parseInt(form.zumaK.value)+parseInt(form.chaseK.value)+parseInt(form.rubbleK.value)+parseInt(form.skyeK.value)+parseInt(form.everestK.value)+parseInt(form.trackerK.value)+parseInt(form.rexK.value)+parseInt(form.robK.value);
+	var vehiclecost=parseInt(form.ryderV.value)+parseInt(form.marshallV.value)+parseInt(form.zumaV.value)+parseInt(form.chaseV.value)+parseInt(form.rubbleV.value)+parseInt(form.skyeV.value)+parseInt(form.everestV.value)+parseInt(form.trackerV.value)+parseInt(form.rexV.value);
+	var buildingcost=parseInt(form.look.value)+parseInt(form.bhq.value);
+	var patrollerscost=parseInt(form.airV.value)+parseInt(form.subV.value)+parseInt(form.seaV.value)+parseInt(form.pawV.value);
+	var period=parseInt(form.existence.value/4);
+	//Total capital investment cost
+	var totalinvestment=kitcost+vehiclecost+patrollerscost+buildingcost;
+	form.invest.value=totalinvestment;
+	//Maintenance cost
+	var kitm=parseInt(form.kitmpa.value)/100;
+	var vehm=parseInt(form.vehmpa.value)/100;
+	var buildm=parseInt(form.buildmpa.value)/100;
+	var maintenancepa = kitcost*kitm+vehiclecost*vehm+buildingcost*buildm;
+	form.costpa.value=maintenancepa;
+	//Taxes revenues pa
+	var taxincome=form.population.value*form.avgtax.value;
+	form.taxpayer.value=taxincome;
+	//TOTALS
+	var totalcost=totalinvestment+maintenancepa*period;
+	form.costtotal.value=totalcost;
+	var totaltax=taxincome*period;
+	form.taxtotal.value=totaltax;
+	var totaldebt=totalcost-totaltax;
+	form.debt.value=totaldebt;
+	form.repay.value=Math.round(totaldebt/taxincome,2);
+}
+/* ]]> */
+</script>
+</head>
+<body>
+<header class="banner">
+<h1>PAW Patrol: Adventure Bay debt calculator</h1>
+</header>
+<main>
+This is an attempt to calculate the cost of the PAW Patrol to the Adventure Bay taxpayer, as well as the debt incurred to the town.
+Since Ryder declined to share any cost data, against governmental regulations, all costs are estimated, but can be changed by the user of this tool.
+This calculator uses the following assumptions:
+<ul>
+	<li>All figures in USD, 2020 economics.</li>
+	<li>Kit consists of communication devices, suit and equipment fitted to suit.</li>
+	<li>Cost of vehicles account for their advanced modularity technology.</li>
+	<li>Each year consists of 4 seasons.</li>
+	<li>Kits/vehicles/buildings do not get written off, but maintained ad infinitum (highly optimistic, particularly considering the growth rate of pups of this age and typical life of vehicles carrying canines).</li>
+	<li>The town does not have any other expenditures outside of the PAW Patrol (again, highly optimistic).</li>
+	<li>Debt repay period assumes an interest free loan for the whole debt and repay duration (again, highly optimistic).</li>
+</ul> 
+</main>
+<form action="Calculate(this.form)">
+<br>
+<b><u>Characters equipment cost:</u></b>
+<table>
+<tr><td>Character </td><td> Kit acquisition cost</td><td> Vehicle acquisition cost</td></tr>
+<tr><td>Ryder:</td><td><input name="ryderK" size="30" value="1000" /></td><td><input name="ryderV" size="30" value="30000" /></td></tr>
+<tr><td>Marshall:</td><td><input name="marshallK" size="30" value="5000" /></td><td><input name="marshallV" size="30" value="50000" /></td></tr>
+<tr><td>Zuma:</td><td><input name="zumaK" size="30" value="2000" /></td><td><input name="zumaV" size="30" value="30000" /></td></tr>
+<tr><td>Chase:</td><td><input name="chaseK" size="30" value="4000" /></td><td><input name="chaseV" size="30" value="30000" /></td></tr>
+<tr><td>Rubble:</td><td><input name="rubbleK" size="30" value="5000" /></td><td><input name="rubbleV" size="30" value="40000" /></td></tr>
+<tr><td>Skye:</td><td><input name="skyeK" size="30" value="10000" /></td><td><input name="skyeV" size="30" value="100000" /></td></tr>
+<tr><td>Everest:</td><td><input name="everestK" size="30" value="1000" /></td><td><input name="everestV" size="30" value="30000" /></td></tr>
+<tr><td>Tracker:</td><td><input name="trackerK" size="30" value="2000" /></td><td><input name="trackerV" size="30" value="0" /></td></tr>
+<tr><td>Rex:</td><td><input name="rexK" size="30" value="3000" /></td><td><input name="rexV" size="30" value="0" /></td></tr>
+<tr><td>Robodog:</td><td><input name="robK" size="30" value="5000000" /></td><td><input name="robV" size="30" value="0" /></td></tr>
+</table>
+<br>
+<b><u>Other vehicles cost:</u></b>
+<table>
+<tr><td>Paw patroller:</td><td><input name="pawV" size="30" value="2000000" /></td></tr>
+<tr><td>Air patroller:</td><td><input name="airV" size="30" value="10000000" /></td></tr>
+<tr><td>Sea patroller:</td><td><input name="seaV" size="30" value="8000000" /></td></tr>
+<tr><td>Sub patroller:</td><td><input name="subV" size="30" value="3000000" /></td></tr>
+</table>
+<br>
+<b><u>Buildings cost:</u></b>
+<table>
+<tr><td>Lookout:</td><td><input name="look" size="30" value="3000000" /></td></tr>
+<tr><td>Beach Tower HQ:</td><td><input name="bhq" size="30" value="500000" /></td></tr>
+</table>
+<br>
+<b><u>Maintenance cost (including tax, insurance, energy and utilities):</u></b>
+<table>
+<tr><td>Kit maintenance cost (% of acquisition cost per annum):</td><td><input name="kitmpa" size="30" value="5" /></td></tr>
+<tr><td>Vehicles maintenance cost (% of acquisition cost per annum):</td><td><input name="vehmpa" size="30" value="5" /></td></tr>
+<tr><td>Buildings maintenance cost (% of acquisition cost per annum):</td><td><input name="buildmpa" size="30" value="1" /></td></tr>
+</table>
+<br>
+<b><u>Adventure bay tax income:</u></b>
+<table>
+<tr><td>Town population:</td><td><input name="population" size="30" value="300" /> (estimate based on characters appearance and number of dwellings seen in town).</td></tr>
+<tr><td>Citizen average local tax bill:</td><td><input name="avgtax" onchange="Calculate(this.form)" size="30" value="1000" /> (average on all population, including non-active citizens).</td></tr>
+<tr><td>PAW Patrol existence (seasons):</td><td><input name="existence" size="30" value="7" /></td></tr>
+</table>
+<br>
+<b><u>Cost calculations (calculated values, not user inputs):</u></b>
+<table>
+<tr><td>PAW Patrol capital investment cost:</td><td><input name="invest" size="30" value="0" readonly /></td></tr>
+<tr><td>PAW Patrol cost per annum:</td><td><input name="costpa" size="30" value="0" readonly /></td></tr>
+<tr><td>Taxpayer contribution per annum:</td><td><input name="taxpayer" size="30" value="0" readonly /></td></tr>
+<tr><td>PAW Patrol total cost since establised:</td><td><input name="costtotal" size="30" value="0" readonly /></td></tr>
+<tr><td>Taxes collected since PAW Patrol established:</td><td><input name="taxtotal" size="30" value="0" readonly /></td></tr>
+<tr><td>Total Adventure Bay debt:</td><td><input name="debt" size="30" value="0" readonly /></td></tr>
+<tr><td>Years to repay debt if PAW Patrol disbanded:</td><td><input name="repay" size="30" value="0" readonly /> (excluding interests).</td></tr>
+</table>
+<br>
+<input type="button" value="Calculate" onclick="Calculate(this.form)" />
+</form>
+<br>
+<footer>
+<p>The development of this tool was financed by Mayor Humdinger and the Foggy Bottom town council.</p>
+</footer>
+ </body>
+</html>
